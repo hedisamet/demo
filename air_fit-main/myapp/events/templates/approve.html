@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Approve User Creation</title>
+
+  <style media="screen">
+    /* CSS styles go here */
+    .approval-form {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+      border-radius: 5px;
+    }
+
+    .approval-form h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .user-info h2 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .user-info p {
+      margin-bottom: 10px;
+    }
+
+    .activation-checkbox {
+      margin-bottom: 20px;
+    }
+
+    button[type="submit"] {
+      display: block;
+      width: 100%;
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 10px; /* Add space between buttons */
+    }
+
+    button[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    .user-details p {
+      margin-bottom: 10px;
+    }
+
+    .user-details a {
+      color: #4caf50;
+    }
+
+    .user-details a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="approval-form">
+    <h1>Approve User Creation</h1>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <div class="user-info">
+        <h2>{{ user_creation.user.username }}</h2>
+        <p>Email: {{ user_creation.user.email }}</p>
+      </div>
+
+      <button type="submit" name="approve">Approve</button>
+      <button type="submit" name="disapprove">Disapprove</button>
+    </form>
+
+    <div class="user-details">
+      <p>Username: {{ user_creation.user.username }}</p>
+      <p>Email: {{ user_creation.user.email }}</p>
+      <p>Please approve or delete this account creation request.</p>
+    </div>
+  </div>
+</body>
+</html>

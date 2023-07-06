@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Page</title>
+    <style>
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .user-creation {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info span {
+            margin-right: 10px;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-actions form {
+            margin-left: 10px;
+        }
+
+        .user-actions button {
+            padding: 5px 10px;
+        }
+
+        .no-creations {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pending User Creations</h1>
+
+    {% if user_creations %}
+        <div class="user-creations">
+            {% for user_creation in user_creations %}
+                <div class="user-creation">
+                    <div class="user-info">
+                        <span>Username: {{ user_creation.user.username }}</span>
+                        <span>Email: {{ user_creation.user.email }}</span>
+                    </div>
+                    <div class="user-actions">
+                        <form action="{% url 'approve_user_creation' user_creation.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type="checkbox" name="activate" id="activate">
+                            <label for="activate">Activate</label>
+                            <button type="submit">Approve</button>
+                        </form>
+                        <form action="{% url 'delete_user_creation' user_creation.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-creations">No pending user creations.</p>
+    {% endif %}
+</body>
+</html>
+

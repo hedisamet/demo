@@ -1,0 +1,13 @@
+<!-- email/user_creation_approval.html -->
+
+<!DOCTYPE html>
+<html>
+<body>
+  <h2>New User Registration Approval</h2>
+  <p>A new user has registered on the website and requires your approval.</p>
+  <p>Username: {{ user.username }}</p>
+  <p>Email: {{ user.email }}</p>
+  <p>Click the following link to approve or delete the user:</p>
+  <p><a href="http://{{ domain }}{% url 'approve_user_creation' uid %}">Approve/Delete User</a></p>
+</body>
+</html>
