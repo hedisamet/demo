@@ -44,7 +44,7 @@
                             <div class="card">
                                 <div class="card-body py-4 px-md-5">
                                     <h1 class="text-center mb-4">Approve User Creation</h1>
-                                    <form method="post">
+                                    <form method="POST">
                                         {% csrf_token %}
                                         <div class="user-info text-center">
                                             <h4>Username: {{ user_creation.user.username }}</h4>
@@ -52,13 +52,13 @@
                                           </div>
                                         <!-- Approve button -->
                                         <div id="approve"class="text-center d-grid gap-2">
-                                            <button type="submit" class="btn btn-primary mb-1">
+                                            <button type="submit" class="btn btn-primary mb-1" name="approve">
                                                 Approve
                                             </button>
                                         </div>
                                         <!-- Disapprove button -->
                                         <div id="disapprove" class="text-center d-grid gap-2">
-                                            <button type="submit" class="btn btn-primary mb-1">
+                                            <button type="submit" class="btn btn-primary mb-1" name="disapprove">
                                                 Disapprove
                                             </button>
                                         </div>

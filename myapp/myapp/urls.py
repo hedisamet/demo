@@ -3,8 +3,13 @@ from django.urls import path
 from events import views
 from django.conf import settings
 from django.conf.urls.static import static
+from events.admin import researcher_site
+
+
 
 app_name = 'events'
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -19,4 +24,9 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('event.html', views.event, name='event'),
     path('event_details.html', views.event_details, name='event_details'),
+    path('research/', researcher_site.urls),
+    
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+

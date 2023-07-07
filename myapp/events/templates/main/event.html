@@ -42,19 +42,19 @@
     <div class="container d-flex align-items-center justify-content-between">
 
       <div class="logo">
-        <a href="index.html"><img src="{% static 'img/logo.png'%}" alt="" class="img-fluid"></a>
+        <a href="{% url 'index'%}"><img src="{% static 'img/logo.png'%}" alt="" class="img-fluid"></a>
       </div>
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link  " href="index.html#hero">Home</a></li>
-          <li><a class="nav-link " href="index.html#objectives">Research</a></li>
-          <li><a class="nav-link " href="index.html#partners">Project Partners</a></li>
-          <li><a class="nav-link  " href="index.html#portfolio">Publications</a></li>
+          <li><a class="nav-link  " href="{% url 'index'%}#hero">Home</a></li>
+          <li><a class="nav-link " href="{% url 'index'%}#objectives">Research</a></li>
+          <li><a class="nav-link " href="{% url 'index'%}#partners">Project Partners</a></li>
+          <li><a class="nav-link  " href="{% url 'index'%}#portfolio">Publications</a></li>
           <li><a class="nav-link  active" href="event.html">Events</a></li>
-          <li><a class="nav-link " href="index.html#pricing">Reaserch proposals</a></li>
-          <li><a class="nav-link " href="index.html#contact">Contact</a></li>
-          <li><a class="getstarted " href="http://127.0.0.1:8000/admin">Login</a></li>
+          <li><a class="nav-link " href="{% url 'index'%}#pricing">Reaserch proposals</a></li>
+          <li><a class="nav-link " href="{% url 'index'%}#contact">Contact</a></li>
+          <li><a class="getstarted " href="{% url 'login' %}">Login</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>

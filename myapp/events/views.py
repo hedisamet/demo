@@ -1,6 +1,5 @@
-
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,Group
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
@@ -10,8 +9,6 @@ from django.contrib import messages
 from django.db import IntegrityError
 from django.utils.crypto import get_random_string
 from django.contrib.admin.views.decorators import staff_member_required
-from django.views.decorators.csrf import csrf_protect
-
 
 def index(request):
     template="main/index.html"
@@ -24,6 +21,7 @@ def event(request):
 def event_details(request):
     template="main/event_details.html"
     return render(request, template)
+
 
 
 
@@ -71,7 +69,12 @@ def LoginPage(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('index')  # Redirect to index URL instead of home URL
+            if user.is_superuser:
+                return redirect('admin:index') 
+            elif user.groups.filter(name='researchers').exists():
+                return redirect('researcher:index') 
+            else:
+                return redirect('index') 
         else:
             error_message = "Username or Password is incorrect!!!"
 
@@ -81,10 +84,15 @@ def LoginPage(request):
     return render(request, 'login.html', context)
 
 
+@login_required(login_url='login')
 def LogoutPage(request):
     logout(request)
     return redirect('index')
 
+@staff_member_required
+def LogoutPage(request):
+    logout(request)
+    return redirect('index')
 
 @login_required(login_url='login')
 def AdminPage(request):
@@ -111,7 +119,12 @@ def approve_user_creation(request, token):
             # Activate the user's account
             my_user = user_creation.user
             my_user.is_active = True
+            my_user.is_staff = True
             my_user.save()
+
+            # Assign the group to the user
+            researchers, _ = Group.objects.get_or_create(name='researchers')
+            my_user.groups.add(researchers)
 
             # Step 6: Send email notification to the user
             subject = 'Account creation approved'
@@ -138,7 +151,6 @@ def approve_user_creation(request, token):
     admin_url = reverse('admin:index')
     context = {'user_creation': user_creation, 'admin_url': admin_url}
     return render(request, 'approve.html', context)
-
 
 @login_required(login_url='login')
 def delete_user_creation(request, user_creation_id):

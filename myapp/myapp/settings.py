@@ -25,6 +25,7 @@ ALLOWED_HOSTS = []
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'your-default-secret-key')
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Application definition
 
