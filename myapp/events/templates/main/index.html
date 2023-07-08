@@ -50,19 +50,21 @@
         <li><a class="nav-link scrollto" href="{% url 'index'%}#partners">Project Partners</a></li>
         <li><a class="nav-link scrollto " href="{% url 'index'%}#portfolio">Publications</a></li>
         <li><a class="nav-link scrollto" href="{% url 'index'%}event.html">Events</a></li>
-        <li><a class="nav-link scrollto" href="{% url 'index'%}#pricing">Reaserch proposals</a></li>
         <li><a class="nav-link scrollto" href="{% url 'index'%}#contact">Contact</a></li>
         {% if user.is_authenticated %}
-        <li>
-            <div class="corner-icon">
-              <div class="avatar">
-                <span class="initial">{{ user.username|first|upper }}</span>
-              </div>
-              <div class="dropdown-menu">
-                <a href="{% url 'logout' %}">Logout</a>
-              </div>
-            </div>
-            <a class="getstarted scrollto" href="{% url 'logout' %}">Logout</a>
+        <li class="nav-item dropdown">
+          <a class="getstarted nav-link dropdown-toggle text-white"  id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ user.username }}
+          </a>
+          <div class="dropdown-menu mt-2 " aria-labelledby="navbarDropdownMenuLink">
+            {% if user.is_superuser %}
+            <a class="dropdown-item text-center" href="{% url 'admin' %}" >My space</a>
+            {% else %}
+            <a class="dropdown-item text-center" href="{% url 'researcher:index' %}">My space</a>
+            {% endif %}
+            <a class="dropdown-item text-center" href="{% url 'logout' %}">Logout</a>
+            
+          </div>
         </li>
         {% else %}
           <li><a class="getstarted scrollto" href="{% url 'login' %}">Login</a></li>
@@ -418,7 +420,12 @@
 
   <!-- Template Main JS File -->
   <script src="{% static 'js/main.js' %}"></script>
-
+  <!-- Add jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <!-- Add Popper.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <!-- Add Bootstrap JS -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 
