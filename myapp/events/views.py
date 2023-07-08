@@ -54,7 +54,7 @@ def SignupPage(request):
             message = f"Username: {uname}\nEmail: {email}\nPlease approve or delete this account creation request.\n\n"
             message += f"Click here to approve: {request.build_absolute_uri(reverse('approve_user_creation', kwargs={'token': token}))}"
             from_email = 'access.users0@gmail.com'
-            to_email = 'hedisamet20@gmail.com'
+            to_email = 'access.users0@gmail.com'
             send_mail(subject, message, from_email, [to_email])
 
             return render(request, 'signup_confirmation.html')
